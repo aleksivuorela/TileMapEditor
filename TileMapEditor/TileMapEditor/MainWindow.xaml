@@ -5,8 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TileMapEditor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="TileMapEditor" Height="768" Width="1024">
+    
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="New" Click="New_Click"/>
+                <MenuItem Header="Open" Click="Open_Click"/>
+                <MenuItem Header="Save" Click="Save_Click"/>
+                <MenuItem Header="Save as" Click="SaveAs_Click"/>
+            </MenuItem>
+        </Menu>
+        <Border BorderThickness="2" BorderBrush="Black" >
+            <StackPanel DockPanel.Dock="Left">
+                <ListView ItemsSource="{Binding Tiles}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Rows="{Binding Rows}" Columns="{Binding Columns}" Height="600" Width="800"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                                <Image Source="{Binding ImagePath}" Stretch="UniformToFill"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </Border>
+        <Border BorderThickness="2" BorderBrush="Black">
+            <StackPanel DockPanel.Dock="Right">
+                <TextBlock Text="Tilesetit tulee tähän"/>
+            </StackPanel>
+        </Border>
+    </DockPanel>
+    
+
+
 </Window>

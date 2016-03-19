@@ -20,9 +20,34 @@ namespace TileMapEditor
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Map map;
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void New_Click(object sender, RoutedEventArgs e)
+        {
+            MapDimensions askDimsWindow = new MapDimensions();
+            askDimsWindow.ShowDialog();
+            map = new Map(askDimsWindow.Rows, askDimsWindow.Columns);
+            this.DataContext = map;
+        }
+
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SaveAs_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
