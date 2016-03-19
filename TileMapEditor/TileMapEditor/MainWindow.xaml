@@ -18,7 +18,7 @@
         </Menu>
         <Border BorderThickness="2" BorderBrush="Black" >
             <StackPanel DockPanel.Dock="Left">
-                <ListView ItemsSource="{Binding Tiles}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                <ListView ItemsSource="{Binding Tiles}">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid Rows="{Binding Rows}" Columns="{Binding Columns}" Height="600" Width="800"/>
@@ -26,7 +26,9 @@
                     </ListView.ItemsPanel>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                                <Image Source="{Binding ImagePath}" Stretch="UniformToFill"/>
+                            <Border Margin="-6">
+                                <Image Source="{Binding ImagePath}"/>
+                            </Border>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
