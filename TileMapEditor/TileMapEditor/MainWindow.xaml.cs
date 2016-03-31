@@ -31,7 +31,7 @@ namespace TileMapEditor
         {
             MapDimensions askDimsWindow = new MapDimensions();
             askDimsWindow.ShowDialog();
-            map = new Map(askDimsWindow.Rows, askDimsWindow.Columns);
+            map = new Map(askDimsWindow.Rows, askDimsWindow.Columns, askDimsWindow.TileWidth, askDimsWindow.TileHeight);
             this.DataContext = map;
         }
 

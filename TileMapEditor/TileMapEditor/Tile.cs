@@ -10,6 +10,10 @@ namespace TileMapEditor
     {
         private string _imagePath;
 
+        public Tile()
+        {
+        }
+
         public Tile(string imagePath)
         {
             _imagePath = imagePath;

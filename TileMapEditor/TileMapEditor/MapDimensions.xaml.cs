@@ -21,6 +21,8 @@ namespace TileMapEditor
     {
         private int _rows;
         private int _columns;
+        private int _tileWidth;
+        private int _tileHeight;
 
         public MapDimensions()
         {
@@ -39,10 +41,25 @@ namespace TileMapEditor
             set { _columns = value; }
         }
 
+        public int TileWidth
+        {
+            get { return _tileWidth; }
+            set { _tileWidth = value; }
+        }
+
+        public int TileHeight
+        {
+            get { return _tileHeight; }
+            set { _tileHeight = value; }
+        }
+
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            _rows = int.Parse(txtHeight.Text);
-            _columns = int.Parse(txtWidth.Text);
+            //Tarkista etteivät ole tyhjiä kenttiä!
+            _rows = int.Parse(txtMapHeight.Text);
+            _columns = int.Parse(txtMapWidth.Text);
+            _tileWidth = int.Parse(txtTileWidth.Text);
+            _tileHeight = int.Parse(txtTileHeight.Text);
             this.Close();
         }
 
