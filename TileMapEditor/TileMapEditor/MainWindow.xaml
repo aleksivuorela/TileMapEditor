@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TileMapEditor"
         mc:Ignorable="d"
         Title="TileMapEditor" Height="768" Width="1024">
-    
+
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
@@ -16,31 +16,24 @@
                 <MenuItem Header="Save as" Click="SaveAs_Click"/>
             </MenuItem>
         </Menu>
-        <Border BorderThickness="2" BorderBrush="Black" >
-            <StackPanel DockPanel.Dock="Left">
-                <ListView ItemsSource="{Binding Tiles}">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Rows="{Binding Rows}" Columns="{Binding Columns}" Height="600" Width="800"/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border Margin="-6">
-                                <Image Source="{Binding ImagePath}"/>
-                            </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackPanel>
-        </Border>
-        <Border BorderThickness="2" BorderBrush="Black">
-            <StackPanel DockPanel.Dock="Right">
-                <TextBlock Text="Tilesetit tulee tähän"/>
-            </StackPanel>
-        </Border>
+        <StackPanel DockPanel.Dock="Left">
+            <ListView ItemsSource="{Binding Tiles}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="{Binding Rows}" Columns="{Binding Columns}" Height="600" Width="800"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="-6">
+                            <Image Source="{Binding ImagePath}"/>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+        <Grid DockPanel.Dock="Right">
+            <ListView HorizontalAlignment="Right" Name="lvTileSet" VerticalAlignment="Stretch" SelectionChanged="lvTileSet_SelectionChanged"/>
+        </Grid>
     </DockPanel>
-    
-
-
 </Window>

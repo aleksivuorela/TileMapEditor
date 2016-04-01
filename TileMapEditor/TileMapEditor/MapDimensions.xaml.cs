@@ -56,10 +56,17 @@ namespace TileMapEditor
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             //Tarkista etteivät ole tyhjiä kenttiä!
-            _rows = int.Parse(txtMapHeight.Text);
-            _columns = int.Parse(txtMapWidth.Text);
-            _tileWidth = int.Parse(txtTileWidth.Text);
-            _tileHeight = int.Parse(txtTileHeight.Text);
+            try
+            {
+                _rows = int.Parse(txtMapHeight.Text);
+                _columns = int.Parse(txtMapWidth.Text);
+                _tileWidth = int.Parse(txtTileWidth.Text);
+                _tileHeight = int.Parse(txtTileHeight.Text);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
             this.Close();
         }
 
