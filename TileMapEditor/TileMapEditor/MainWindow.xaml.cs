@@ -33,9 +33,12 @@ namespace TileMapEditor
             {
                 MapDimensions askDimsWindow = new MapDimensions();
                 askDimsWindow.ShowDialog();
-                map = new Map(askDimsWindow.Rows, askDimsWindow.Columns, askDimsWindow.TileWidth, askDimsWindow.TileHeight);
-                this.DataContext = map;
-                SetImages(map.cropTileSet());
+                if (askDimsWindow.Rows != 0 && askDimsWindow.Columns != 0 && askDimsWindow.TileWidth != 0 && askDimsWindow.TileHeight != 0)
+                { 
+                    map = new Map(askDimsWindow.Rows, askDimsWindow.Columns, askDimsWindow.TileWidth, askDimsWindow.TileHeight);
+                    this.DataContext = map;
+                    SetImages(map.cropTileSet());
+                }
             }
             catch (Exception ex)
             {

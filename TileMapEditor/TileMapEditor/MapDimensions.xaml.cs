@@ -55,19 +55,30 @@ namespace TileMapEditor
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            //Tarkista etteivät ole tyhjiä kenttiä!
             try
             {
-                _rows = int.Parse(txtMapHeight.Text);
-                _columns = int.Parse(txtMapWidth.Text);
-                _tileWidth = int.Parse(txtTileWidth.Text);
-                _tileHeight = int.Parse(txtTileHeight.Text);
+                int rows = int.Parse(txtMapHeight.Text);
+                int columns = int.Parse(txtMapWidth.Text);
+                int tileWidth = int.Parse(txtTileWidth.Text);
+                int tileHeight = int.Parse(txtTileHeight.Text);
+
+                if (rows > 0 && columns > 0 && tileWidth > 0 && tileHeight > 0)
+                {
+                    _rows = rows;
+                    _columns = columns;
+                    _tileWidth = tileWidth;
+                    _tileHeight = tileHeight;
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Vain positiiviset kokonaisluvut kelpaavat.");
+                }            
             }
             catch (Exception)
             {
-                throw;
-            }
-            this.Close();
+                MessageBox.Show("Vain positiiviset kokonaisluvut kelpaavat.");
+            }          
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
