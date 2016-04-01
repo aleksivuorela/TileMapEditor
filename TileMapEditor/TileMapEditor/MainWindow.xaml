@@ -32,8 +32,14 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
-        <Grid DockPanel.Dock="Right">
-            <ListView HorizontalAlignment="Right" Name="lvTileSet" VerticalAlignment="Stretch" SelectionChanged="lvTileSet_SelectionChanged"/>
-        </Grid>
+        <StackPanel DockPanel.Dock="Right">
+            <ListView Name="lvTileSet" SelectionChanged="lvTileSet_SelectionChanged">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="{Binding}" Background="#004080"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </StackPanel>
     </DockPanel>
 </Window>

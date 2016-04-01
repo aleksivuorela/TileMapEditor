@@ -17,14 +17,17 @@ namespace TileMapEditor
         private List<Tile> _tiles = new List<Tile>();
         private BitmapSource _tileSet = new BitmapImage(new Uri("d://tileset.png"));
         private List<CroppedBitmap> _tileSetCropped = new List<CroppedBitmap>();
-        
+        private int margin = 1; //korjaa!
+        private int _tilesPerRow;
+
         public Map(int rows, int columns, int tileWidth, int tileHeight)
         {
             _rows = rows;
             _columns = columns;
             _tileWidth = tileWidth;
             _tileHeight = tileHeight;
-            setTiles();
+            _tilesPerRow = (_tileSet.PixelWidth - margin) / (_tileWidth + margin);
+            setTiles();        
         }
 
         public int Rows
@@ -45,6 +48,12 @@ namespace TileMapEditor
             set { _tiles = value; }
         }
 
+        public int TilesPerRow
+        {
+            get { return _tilesPerRow; }
+            set { _tilesPerRow = value; }
+        }
+
         private void setTiles()
         {
             for (int r = 0; r < _rows; r++)
@@ -57,8 +66,7 @@ namespace TileMapEditor
         }
 
         public List<CroppedBitmap> cropTileSet()
-        {
-            int margin = 1;
+        {   
             _tileSetCropped.Clear();
             for (int y = 0 + margin ; y < _tileSet.PixelHeight - margin; y = y + _tileHeight + margin)
             {
@@ -79,5 +87,3 @@ namespace TileMapEditor
         }
     }
 }
-
-//12:00--->

@@ -71,6 +71,7 @@ namespace TileMapEditor
             try
             {
                 lvTileSet.Items.Clear();
+                lvTileSet.DataContext = map.TilesPerRow;
                 foreach (var image in images)
                 {
                     lvTileSet.Items.Add(new Image() { Source = image });
