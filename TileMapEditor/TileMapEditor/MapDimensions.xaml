@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TileMapEditor"
         mc:Ignorable="d"
-        Title="New Map" Height="160" Width="350">
+        Title="New Map" Height="220" Width="350">
     <Grid>
         <StackPanel HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <GroupBox Header="Map size" Margin="5" HorizontalAlignment="Center">
                     <StackPanel Orientation="Vertical" Margin="0,10,0,0">
                         <StackPanel Orientation="Horizontal">
@@ -38,9 +38,20 @@
                     </StackPanel>
                 </GroupBox>
             </StackPanel>
+            <GroupBox Header="Tileset" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBox Height="20" Width="90" HorizontalAlignment="Left" Name="txtFileName" VerticalAlignment="Top"/>
+                    <Button Content="Browse" Height="20" HorizontalAlignment="Left" Name="btnBrowse" VerticalAlignment="Top" Width="50" Click="btnBrowse_Click" />
+                    <StackPanel Height="20" Orientation="Horizontal">
+                        <TextBlock Text="Margin:" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <TextBox Text="1" Name="txtTileSetMargin" Margin="0,0,3,0" Width="15" TextAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Text="(px)" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Name="btnOk" Content="Ok" Margin="0,10,10,0" Height="20" Width="60" Click="btnOk_Click"/>
-                <Button Name="btnCancel" Content="Cancel" Margin="0,10,10,0" Height="20" Width="60" Click="btnCancel_Click"/>
+                <Button Name="btnOk" Content="Ok" Margin="0,20,10,0" Height="30" Width="80" Click="btnOk_Click"/>
+                <Button Name="btnCancel" Content="Cancel" Margin="0,20,10,0" Height="30" Width="80" Click="btnCancel_Click"/>
             </StackPanel>
         </StackPanel>
     </Grid>

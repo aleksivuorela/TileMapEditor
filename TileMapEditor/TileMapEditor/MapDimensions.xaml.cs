@@ -23,6 +23,8 @@ namespace TileMapEditor
         private int _columns;
         private int _tileWidth;
         private int _tileHeight;
+        private string _tileSetPath;
+        private int _tileSetMargin;
 
         public MapDimensions()
         {
@@ -53,6 +55,18 @@ namespace TileMapEditor
             set { _tileHeight = value; }
         }
 
+        public string TileSetPath
+        {
+            get { return _tileSetPath; }
+            set { _tileSetPath = value; }
+        }
+
+        public int TileSetMargin
+        {
+            get { return _tileSetMargin; }
+            set { _tileSetMargin = value; }
+        }
+
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -61,29 +75,54 @@ namespace TileMapEditor
                 int columns = int.Parse(txtMapWidth.Text);
                 int tileWidth = int.Parse(txtTileWidth.Text);
                 int tileHeight = int.Parse(txtTileHeight.Text);
+                string tileSetPath = txtFileName.Text;
+                int tileSetMargin = int.Parse(txtTileSetMargin.Text);
 
-                if (rows > 0 && columns > 0 && tileWidth > 0 && tileHeight > 0)
+                if (rows > 0 && columns > 0 && tileWidth > 0 && tileHeight > 0 && tileSetMargin >= 0)
                 {
                     _rows = rows;
                     _columns = columns;
                     _tileWidth = tileWidth;
                     _tileHeight = tileHeight;
+                    _tileSetPath = tileSetPath;
+                    _tileSetMargin = tileSetMargin;
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Vain positiiviset kokonaisluvut kelpaavat.");
+                    MessageBox.Show("Täytä kentät oikein.");
                 }            
             }
             catch (Exception)
             {
-                MessageBox.Show("Vain positiiviset kokonaisluvut kelpaavat.");
+                MessageBox.Show("Täytä kentät oikein.");
             }          
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void btnBrowse_Click(object sender, RoutedEventArgs e)
+        {
+            // Create OpenFileDialog
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            // Set filter for file extension and default file extension
+            dlg.DefaultExt = ".png";
+            dlg.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
+
+            // Display OpenFileDialog by calling ShowDialog method
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Get the selected file name and display in a TextBox
+            if (result == true)
+            {
+                // Open document
+                string filename = dlg.FileName;
+                txtFileName.Text = filename;
+            }
         }
     }
 }

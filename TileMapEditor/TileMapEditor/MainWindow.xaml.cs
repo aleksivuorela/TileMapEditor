@@ -34,10 +34,10 @@ namespace TileMapEditor
             {
                 MapDimensions askDimsWindow = new MapDimensions();
                 askDimsWindow.ShowDialog();
-                if (askDimsWindow.Rows != 0 && askDimsWindow.Columns != 0 && askDimsWindow.TileWidth != 0 && askDimsWindow.TileHeight != 0)
+                if (askDimsWindow.Rows != 0 && askDimsWindow.Columns != 0 && askDimsWindow.TileWidth != 0 && askDimsWindow.TileHeight != 0 && askDimsWindow.TileSetPath != null)
                 {
                     _map = new Map(askDimsWindow.Rows, askDimsWindow.Columns);
-                    _tileset = new TileSet("d://tileset.png", askDimsWindow.TileWidth, askDimsWindow.TileHeight, 1); //korjaa kova-koodatut parametrit!
+                    _tileset = new TileSet(askDimsWindow.TileSetPath, askDimsWindow.TileWidth, askDimsWindow.TileHeight, askDimsWindow.TileSetMargin);
                     this.DataContext = _map;
                     SetImages(_tileset.cropTileSet());
                 }

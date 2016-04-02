@@ -49,5 +49,3 @@ namespace TileMapEditor
         }     
     }
 }
-
-//13.00-->
