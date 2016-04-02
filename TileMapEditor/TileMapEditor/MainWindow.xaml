@@ -36,7 +36,8 @@
             <ListView Name="lvTileSet" SelectionChanged="lvTileSet_SelectionChanged">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="{Binding}" Background="#004080"/>
+                        <UniformGrid Columns="{Binding}"/>
+                        <!-- Background="#004080" -->
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
             </ListView>

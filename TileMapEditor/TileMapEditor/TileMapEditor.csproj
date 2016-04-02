@@ -59,6 +59,7 @@
       <DependentUpon>MapDimensions.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tile.cs" />
+    <Compile Include="TileSet.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

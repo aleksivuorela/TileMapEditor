@@ -20,7 +20,8 @@ namespace TileMapEditor
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Map map;
+        private Map _map;
+        private TileSet _tileset;
 
         public MainWindow()
         {
@@ -34,10 +35,11 @@ namespace TileMapEditor
                 MapDimensions askDimsWindow = new MapDimensions();
                 askDimsWindow.ShowDialog();
                 if (askDimsWindow.Rows != 0 && askDimsWindow.Columns != 0 && askDimsWindow.TileWidth != 0 && askDimsWindow.TileHeight != 0)
-                { 
-                    map = new Map(askDimsWindow.Rows, askDimsWindow.Columns, askDimsWindow.TileWidth, askDimsWindow.TileHeight);
-                    this.DataContext = map;
-                    SetImages(map.cropTileSet());
+                {
+                    _map = new Map(askDimsWindow.Rows, askDimsWindow.Columns);
+                    _tileset = new TileSet("d://tileset.png", askDimsWindow.TileWidth, askDimsWindow.TileHeight, 1); //korjaa kova-koodatut parametrit!
+                    this.DataContext = _map;
+                    SetImages(_tileset.cropTileSet());
                 }
             }
             catch (Exception ex)
@@ -71,7 +73,7 @@ namespace TileMapEditor
             try
             {
                 lvTileSet.Items.Clear();
-                lvTileSet.DataContext = map.TilesPerRow;
+                lvTileSet.DataContext = _tileset.TilesPerRow;
                 foreach (var image in images)
                 {
                     lvTileSet.Items.Add(new Image() { Source = image });
