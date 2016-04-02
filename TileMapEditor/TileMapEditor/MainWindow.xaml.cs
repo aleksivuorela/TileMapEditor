@@ -21,7 +21,6 @@ namespace TileMapEditor
     public partial class MainWindow : Window
     {
         private Map _map;
-        private TileSet _tileset;
 
         public MainWindow()
         {
@@ -36,10 +35,9 @@ namespace TileMapEditor
                 askDimsWindow.ShowDialog();
                 if (askDimsWindow.Rows != 0 && askDimsWindow.Columns != 0 && askDimsWindow.TileWidth != 0 && askDimsWindow.TileHeight != 0 && askDimsWindow.TileSetPath != null)
                 {
-                    _map = new Map(askDimsWindow.Rows, askDimsWindow.Columns);
-                    _tileset = new TileSet(askDimsWindow.TileSetPath, askDimsWindow.TileWidth, askDimsWindow.TileHeight, askDimsWindow.TileSetMargin);
+                    _map = new Map(askDimsWindow.Rows, askDimsWindow.Columns, askDimsWindow.TileSetPath, askDimsWindow.TileWidth, askDimsWindow.TileHeight, askDimsWindow.TileSetMargin);
                     this.DataContext = _map;
-                    SetImages(_tileset.cropTileSet());
+                    //SetImages(_tileset.cropTileSet());
                 }
             }
             catch (Exception ex)
@@ -68,6 +66,7 @@ namespace TileMapEditor
             //TODO
         }
 
+        /*
         private void SetImages(List<CroppedBitmap> images)
         {
             try
@@ -84,5 +83,6 @@ namespace TileMapEditor
                 throw;
             }
         }
+        */
     }
 }

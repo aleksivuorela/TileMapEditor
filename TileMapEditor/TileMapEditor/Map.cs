@@ -9,14 +9,17 @@ namespace TileMapEditor
     public class Map
     {
         private int _rows;
-        private int _columns;
-        private List<Tile> _tiles = new List<Tile>();
+        private int _columns;     
+        private TileSet _tileSet;
+        private List<Tile> _tiles;
 
-        public Map(int rows, int columns)
+        public Map(int rows, int columns, string tileSetPath, int tileWidth, int tileHeight, int margin)
         {
             _rows = rows;
-            _columns = columns;      
-            setTiles();        
+            _columns = columns;
+            _tileSet = new TileSet(tileSetPath, tileWidth, tileHeight, margin);
+            _tiles = _tileSet.Tiles;
+            //setTiles();        
         }
 
         public int Rows
@@ -37,6 +40,12 @@ namespace TileMapEditor
             set { _tiles = value; }
         }
 
+        public TileSet TileSet
+        {
+            get { return _tileSet; }
+            set { _tileSet = value; }
+        }
+        /*
         private void setTiles()
         {
             for (int r = 0; r < _rows; r++)
@@ -46,6 +55,7 @@ namespace TileMapEditor
                     _tiles.Add(new Tile());
                 }
             }
-        }     
+        } 
+        */    
     }
 }

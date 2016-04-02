@@ -10,20 +10,27 @@ namespace TileMapEditor
 {
     public class TileSet
     {
-        private BitmapSource _tileSet;
+        private BitmapSource _tileSetBitmap;
         private int _tileWidth;
         private int _tileHeight;
         private int _margin;
-        private List<CroppedBitmap> _tileSetCropped = new List<CroppedBitmap>();  
+        private List<Tile> _tiles = new List<Tile>();  
         private int _tilesPerRow;
 
         public TileSet(string tileSetPath, int tileWidth, int tileHeight, int margin)
         {
-            _tileSet = new BitmapImage(new Uri(tileSetPath));
+            _tileSetBitmap = new BitmapImage(new Uri(tileSetPath));
             _tileWidth = tileWidth;
             _tileHeight = tileHeight;
             _margin = margin;
-            _tilesPerRow = (_tileSet.PixelWidth - margin) / (_tileWidth + margin);
+            _tilesPerRow = (_tileSetBitmap.PixelWidth - margin) / (_tileWidth + margin);
+            createTiles();
+        }
+
+        public List<Tile> Tiles
+        {
+            get { return _tiles; }
+            set { _tiles = value; }
         }
 
         public int TilesPerRow
@@ -32,17 +39,17 @@ namespace TileMapEditor
             set { _tilesPerRow = value; }
         }
 
-        public List<CroppedBitmap> cropTileSet()
+        private void createTiles()
         {
-            _tileSetCropped.Clear();
-            for (int y = 0 + _margin; y < _tileSet.PixelHeight - _margin; y = y + _tileHeight + _margin)
+            _tiles.Clear();
+            for (int y = 0 + _margin; y < _tileSetBitmap.PixelHeight - _margin; y = y + _tileHeight + _margin)
             {
-                for (int x = 0 + _margin; x < _tileSet.PixelWidth - _margin; x = x + _tileWidth + _margin)
+                for (int x = 0 + _margin; x < _tileSetBitmap.PixelWidth - _margin; x = x + _tileWidth + _margin)
                 {
                     try
                     {
-                        CroppedBitmap cb = new CroppedBitmap(_tileSet, new Int32Rect(x, y, _tileWidth, _tileHeight));
-                        _tileSetCropped.Add(cb);
+                        Tile tile = new Tile(_tileSetBitmap, new Int32Rect(x, y, _tileWidth, _tileHeight));
+                        _tiles.Add(tile);
                     }
                     catch (Exception)
                     {
@@ -50,7 +57,6 @@ namespace TileMapEditor
                     }
                 }
             }
-            return _tileSetCropped;
         }
     }
 }

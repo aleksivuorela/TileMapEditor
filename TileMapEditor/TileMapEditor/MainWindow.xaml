@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:TileMapEditor"
         mc:Ignorable="d"
         Title="TileMapEditor" Height="768" Width="1024">
-
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
@@ -16,30 +16,51 @@
                 <MenuItem Header="Save as" Click="SaveAs_Click"/>
             </MenuItem>
         </Menu>
-        <StackPanel DockPanel.Dock="Left">
-            <ListView ItemsSource="{Binding Tiles}">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Rows="{Binding Rows}" Columns="{Binding Columns}" Height="600" Width="800"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Border Margin="-6">
-                            <Image Source="{Binding ImagePath}"/>
-                        </Border>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackPanel>
+        <Grid DockPanel.Dock="Left" Width="800" Height="600">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Width="Auto">
+                <ListView ItemsSource="{Binding Tiles}" Background="Transparent" BorderThickness="0">
+                    <ListView.Resources>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Margin" Value="0"/>
+                        </Style>
+                    </ListView.Resources>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Rows="{Binding Rows}" Columns="{Binding Columns}"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding TileSprite}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Template>
+                        <ControlTemplate TargetType="ListView">
+                            <ItemsPresenter Margin="0"/>
+                        </ControlTemplate>
+                    </ListView.Template>
+                </ListView>
+            </StackPanel>
+        </Grid>
         <StackPanel DockPanel.Dock="Right">
-            <ListView Name="lvTileSet" SelectionChanged="lvTileSet_SelectionChanged" Background="Transparent" BorderThickness="0">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Columns="{Binding}"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-            </ListView>
+            <!--
+                <ListView ItemsSource="{Binding TileSet}" Name="lvTileSet" SelectionChanged="lvTileSet_SelectionChanged" Background="Transparent" BorderThickness="0">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="24"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="-6">
+                                <Image Source="{Binding TileSprite}"/>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            -->
         </StackPanel>
     </DockPanel>
 </Window>
