@@ -10,13 +10,14 @@ namespace TileMapEditor
     {
         private int _mapRows;
         private int _mapColumns;
-        private List<Tile> _mapTiles = new List<Tile>();
+        private List<Tile> _mapTiles;
 
-        public Map(int rows, int columns)
+        public Map(int rows, int columns, int tileWidth, int tileHeight)
         {
             _mapRows = rows;
-            _mapColumns = columns;        
-            setTiles();        
+            _mapColumns = columns;
+            _mapTiles = new List<Tile>(); 
+            setEmptyTiles(tileWidth, tileHeight);        
         }
 
         public int MapRows
@@ -36,13 +37,14 @@ namespace TileMapEditor
             get { return _mapTiles; }
         }    
 
-        private void setTiles()
+        private void setEmptyTiles(int tileWidth, int tileHeight)
         {
             for (int r = 0; r < _mapRows; r++)
             {
                 for (int c = 0; c < _mapColumns; c++)
                 {
-                    _mapTiles.Add(new Tile());
+                    Tile tile = new Tile(tileWidth, tileHeight);
+                    _mapTiles.Add(tile);
                 }
             }
         } 

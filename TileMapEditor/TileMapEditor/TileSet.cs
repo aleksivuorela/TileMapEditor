@@ -14,7 +14,7 @@ namespace TileMapEditor
         private int _tileWidth;
         private int _tileHeight;
         private int _margin;
-        private List<Tile> _tiles = new List<Tile>();  
+        private List<Tile> _tiles;
         private int _columns;
 
         public TileSet(string tileSetPath, int tileWidth, int tileHeight, int margin)
@@ -23,6 +23,7 @@ namespace TileMapEditor
             _tileWidth = tileWidth;
             _tileHeight = tileHeight;
             _margin = margin;
+            _tiles = new List<Tile>();
             _columns = (_bitmap.PixelWidth - margin) / (_tileWidth + margin);
             createTiles();
         }

@@ -36,7 +36,7 @@ namespace TileMapEditor
                 askDimsWindow.ShowDialog();
                 if (askDimsWindow.Rows != 0 && askDimsWindow.Columns != 0 && askDimsWindow.TileWidth != 0 && askDimsWindow.TileHeight != 0)
                 {
-                    _map = new Map(askDimsWindow.Rows, askDimsWindow.Columns);
+                    _map = new Map(askDimsWindow.Rows, askDimsWindow.Columns, askDimsWindow.TileWidth, askDimsWindow.TileHeight);
                     lvMap.DataContext = _map;
                     _tileSet = new TileSet(askDimsWindow.TileSetPath, askDimsWindow.TileWidth, askDimsWindow.TileHeight, askDimsWindow.TileSetMargin);
                     lvTileSet.DataContext = _tileSet;
