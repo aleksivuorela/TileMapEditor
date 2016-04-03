@@ -78,7 +78,7 @@ namespace TileMapEditor
                 string tileSetPath = txtFileName.Text;
                 int tileSetMargin = int.Parse(txtTileSetMargin.Text);
 
-                if (rows > 0 && columns > 0 && tileWidth > 0 && tileHeight > 0 && tileSetMargin >= 0)
+                if (rows > 0 && columns > 0 && tileWidth > 0 && tileHeight > 0 && !string.IsNullOrEmpty(tileSetPath) && tileSetMargin >= 0)
                 {
                     _rows = rows;
                     _columns = columns;
@@ -90,12 +90,12 @@ namespace TileMapEditor
                 }
                 else
                 {
-                    MessageBox.Show("Täytä kentät oikein.");
+                    MessageBox.Show("Täytä kaikki kentät oikein.");
                 }            
             }
             catch (Exception)
             {
-                MessageBox.Show("Täytä kentät oikein.");
+                MessageBox.Show("Täytä kaikki kentät oikein.");
             }          
         }
 

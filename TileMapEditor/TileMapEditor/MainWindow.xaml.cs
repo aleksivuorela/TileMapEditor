@@ -21,6 +21,7 @@ namespace TileMapEditor
     public partial class MainWindow : Window
     {
         private Map _map;
+        private TileSet _tileSet;
 
         public MainWindow()
         {
@@ -33,11 +34,12 @@ namespace TileMapEditor
             {
                 MapDimensions askDimsWindow = new MapDimensions();
                 askDimsWindow.ShowDialog();
-                if (askDimsWindow.Rows != 0 && askDimsWindow.Columns != 0 && askDimsWindow.TileWidth != 0 && askDimsWindow.TileHeight != 0 && askDimsWindow.TileSetPath != null)
+                if (askDimsWindow.Rows != 0 && askDimsWindow.Columns != 0 && askDimsWindow.TileWidth != 0 && askDimsWindow.TileHeight != 0)
                 {
-                    _map = new Map(askDimsWindow.Rows, askDimsWindow.Columns, askDimsWindow.TileSetPath, askDimsWindow.TileWidth, askDimsWindow.TileHeight, askDimsWindow.TileSetMargin);
-                    this.DataContext = _map;
-                    //SetImages(_tileset.cropTileSet());
+                    _map = new Map(askDimsWindow.Rows, askDimsWindow.Columns);
+                    lvMap.DataContext = _map;
+                    _tileSet = new TileSet(askDimsWindow.TileSetPath, askDimsWindow.TileWidth, askDimsWindow.TileHeight, askDimsWindow.TileSetMargin);
+                    lvTileSet.DataContext = _tileSet;
                 }
             }
             catch (Exception ex)
@@ -65,24 +67,5 @@ namespace TileMapEditor
         {
             //TODO
         }
-
-        /*
-        private void SetImages(List<CroppedBitmap> images)
-        {
-            try
-            {
-                lvTileSet.Items.Clear();
-                lvTileSet.DataContext = _tileset.TilesPerRow;
-                foreach (var image in images)
-                {
-                    lvTileSet.Items.Add(new Image() { Source = image });
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-        */
     }
 }

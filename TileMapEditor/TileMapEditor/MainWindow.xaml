@@ -16,51 +16,74 @@
                 <MenuItem Header="Save as" Click="SaveAs_Click"/>
             </MenuItem>
         </Menu>
-        <Grid DockPanel.Dock="Left" Width="800" Height="600">
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Width="Auto">
-                <ListView ItemsSource="{Binding Tiles}" Background="Transparent" BorderThickness="0">
-                    <ListView.Resources>
-                        <Style TargetType="{x:Type ListViewItem}">
-                            <Setter Property="Padding" Value="0"/>
-                            <Setter Property="BorderThickness" Value="0"/>
-                            <Setter Property="Margin" Value="0"/>
-                        </Style>
-                    </ListView.Resources>
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Rows="{Binding Rows}" Columns="{Binding Columns}"/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Image Source="{Binding TileSprite}"/>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <ListView.Template>
-                        <ControlTemplate TargetType="ListView">
-                            <ItemsPresenter Margin="0"/>
-                        </ControlTemplate>
-                    </ListView.Template>
-                </ListView>
-            </StackPanel>
-        </Grid>
-        <StackPanel DockPanel.Dock="Right">
-            <!--
-                <ListView ItemsSource="{Binding TileSet}" Name="lvTileSet" SelectionChanged="lvTileSet_SelectionChanged" Background="Transparent" BorderThickness="0">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Columns="24"/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border Margin="-6">
+        <Grid DockPanel.Dock="Left" Width="800" Height="600" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Border BorderBrush="Black" BorderThickness="2">
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Width="Auto">
+                    <ListView ItemsSource="{Binding MapTiles}" Name="lvMap" Background="Transparent" BorderThickness="0">
+                        <ListView.Resources>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Margin" Value="0"/>
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Rows="{Binding MapRows}" Columns="{Binding MapColumns}"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
                                 <Image Source="{Binding TileSprite}"/>
-                            </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            -->
-        </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.Template>
+                            <ControlTemplate TargetType="ListView">
+                                <ItemsPresenter Margin="0"/>
+                            </ControlTemplate>
+                        </ListView.Template>
+                    </ListView>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <Grid DockPanel.Dock="Right" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Border BorderBrush="Black" BorderThickness="2">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0" Padding="0">
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Width="Auto">
+                    <ListView ItemsSource="{Binding TileSetTiles}" Name="lvTileSet" SelectionChanged="lvTileSet_SelectionChanged" Background="Transparent" BorderThickness="0">
+                        <ListView.Resources>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="BorderBrush" Value="Black"/>
+                                <Setter Property="Margin" Value="0"/>
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="{Binding TileSetColumns}"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding TileSprite}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.Template>
+                            <ControlTemplate TargetType="ListView">
+                                <ItemsPresenter Margin="0"/>
+                            </ControlTemplate>
+                        </ListView.Template>
+                    </ListView>
+                </StackPanel>
+            </ScrollViewer>
+            </Border>
+        </Grid>
     </DockPanel>
 </Window>

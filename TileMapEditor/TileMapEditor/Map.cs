@@ -8,54 +8,44 @@ namespace TileMapEditor
 {
     public class Map
     {
-        private int _rows;
-        private int _columns;     
-        private TileSet _tileSet;
-        private List<Tile> _tiles;
+        private int _mapRows;
+        private int _mapColumns;
+        private List<Tile> _mapTiles = new List<Tile>();
 
-        public Map(int rows, int columns, string tileSetPath, int tileWidth, int tileHeight, int margin)
+        public Map(int rows, int columns)
         {
-            _rows = rows;
-            _columns = columns;
-            _tileSet = new TileSet(tileSetPath, tileWidth, tileHeight, margin);
-            _tiles = _tileSet.Tiles;
-            //setTiles();        
+            _mapRows = rows;
+            _mapColumns = columns;        
+            setTiles();        
         }
 
-        public int Rows
+        public int MapRows
         {
-            get { return _rows; }
-            set { _rows = value; }
+            get { return _mapRows; }
+            set { _mapRows = value; }
         }
 
-        public int Columns
+        public int MapColumns
         {
-            get { return _columns; }
-            set { _columns = value; }
+            get { return _mapColumns; }
+            set { _mapColumns = value; }
         }
 
-        public List<Tile> Tiles
+        public List<Tile> MapTiles
         {
-            get { return _tiles; }
-            set { _tiles = value; }
-        }
+            get { return _mapTiles; }
+        }    
 
-        public TileSet TileSet
-        {
-            get { return _tileSet; }
-            set { _tileSet = value; }
-        }
-        /*
         private void setTiles()
         {
-            for (int r = 0; r < _rows; r++)
+            for (int r = 0; r < _mapRows; r++)
             {
-                for (int c = 0; c < _columns; c++)
+                for (int c = 0; c < _mapColumns; c++)
                 {
-                    _tiles.Add(new Tile());
+                    _mapTiles.Add(new Tile());
                 }
             }
         } 
-        */    
+  
     }
 }
