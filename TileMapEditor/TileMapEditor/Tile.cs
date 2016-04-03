@@ -52,5 +52,22 @@ namespace TileMapEditor
             get { return _tileSprite; }
             set { _tileSprite = value; }
         }
+
+        public void setData(BitmapSource tileSetBitmap, Int32Rect renderRect)
+        {
+            _tileSetBitmap = tileSetBitmap;
+            _renderRect = renderRect;
+            _tileSprite = new CroppedBitmap(_tileSetBitmap, _renderRect);
+        }
+
+        public BitmapSource TileSetBitmap
+        {
+            get { return _tileSetBitmap; }
+        }
+
+        public Int32Rect RenderRect
+        {
+            get { return _renderRect; }
+        }
     }
 }
