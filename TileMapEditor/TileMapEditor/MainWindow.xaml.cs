@@ -22,7 +22,7 @@ namespace TileMapEditor
     {
         private Map _map;
         private TileSet _tileSet;
-        private List<Tile> _selectedTiles;
+        private Tile _selectedTileFromSet;
 
         public MainWindow()
         {
@@ -37,11 +37,12 @@ namespace TileMapEditor
                 askDimsWindow.ShowDialog();
                 if (askDimsWindow.Rows != 0 && askDimsWindow.Columns != 0 && askDimsWindow.TileWidth != 0 && askDimsWindow.TileHeight != 0)
                 {
+                    gridLeft.Visibility = Visibility.Visible;
+                    gridRight.Visibility = Visibility.Visible;
                     _map = new Map(askDimsWindow.Rows, askDimsWindow.Columns, askDimsWindow.TileWidth, askDimsWindow.TileHeight);
                     lvMap.DataContext = _map;
                     _tileSet = new TileSet(askDimsWindow.TileSetPath, askDimsWindow.TileWidth, askDimsWindow.TileHeight, askDimsWindow.TileSetMargin);
                     lvTileSet.DataContext = _tileSet;
-                    _selectedTiles = new List<Tile>();
                 }
             }
             catch (Exception ex)
@@ -67,25 +68,15 @@ namespace TileMapEditor
 
         private void lvTileSet_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedTiles.Clear();
-            foreach (Tile tile in lvTileSet.SelectedItems)
-            {
-                _selectedTiles.Add(tile);
-            }
+            _selectedTileFromSet = (Tile)lvTileSet.SelectedItem;
         }
 
         private void lvMap_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_selectedTiles.Count > 0)
+            if (_selectedTileFromSet != null && lvMap.SelectedItems.Count > 0)
             {
-                foreach (Tile tile in lvMap.SelectedItems)
-                {
-                    for (int i = 0; i < _selectedTiles.Count(); i++)
-                    { 
-                        tile.setData(_selectedTiles[i].TileSetBitmap, _selectedTiles[i].RenderRect);
-                        MessageBox.Show(_selectedTiles[i].TileSetBitmap.ToString() + "-------" + _selectedTiles[i].RenderRect.ToString());
-                    }
-                }
+                Tile selectedTileFromMap = (Tile)lvMap.SelectedItem;
+                selectedTileFromMap.setData(_selectedTileFromSet.TileSetBitmap, _selectedTileFromSet.RenderRect);
             }
         }
     }

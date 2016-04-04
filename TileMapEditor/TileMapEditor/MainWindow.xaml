@@ -6,6 +6,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:TileMapEditor"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         Title="TileMapEditor" Width="1024" Height="768">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -16,17 +17,17 @@
                 <MenuItem Header="Save as" Click="SaveAs_Click"/>
             </MenuItem>
         </Menu>
-        <Grid DockPanel.Dock="Left" Width="800" Height="600" Margin="10">
+        <Grid DockPanel.Dock="Left" Width="800" Height="600" Margin="10" Name="gridLeft" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border BorderBrush="Black" BorderThickness="2">
-                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Width="Auto" Height="Auto">
-                        <ListView ItemsSource="{Binding MapTiles}" Name="lvMap" SelectionChanged="lvMap_SelectionChanged" Background="Transparent" BorderThickness="0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" BorderThickness="2">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Width="Auto" Height="Auto">
+                    <Border BorderBrush="Black" BorderThickness="2">
+                        <ListView ItemsSource="{Binding MapTiles}" Name="lvMap" SelectionChanged="lvMap_SelectionChanged" BorderThickness="0" SelectionMode="Single">
                             <ListView.Resources>
                                 <Style TargetType="{x:Type ListViewItem}">
                                     <Setter Property="Padding" Value="0"/>
@@ -50,11 +51,11 @@
                                 </ControlTemplate>
                             </ListView.Template>
                         </ListView>
-                    </StackPanel>
-                </ScrollViewer>
-            </Border>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
-        <Grid DockPanel.Dock="Right" Width="150" Height="400" Margin="10">
+        <Grid DockPanel.Dock="Right" Width="150" Height="400" Margin="10" Name="gridRight" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -64,7 +65,7 @@
             <Border BorderBrush="Black" BorderThickness="2">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Width="Auto" Height="Auto">
-                    <ListView ItemsSource="{Binding TileSetTiles}" Name="lvTileSet" SelectionChanged="lvTileSet_SelectionChanged" Background="Transparent" BorderThickness="0">
+                    <ListView ItemsSource="{Binding TileSetTiles}" Name="lvTileSet" SelectionChanged="lvTileSet_SelectionChanged" Background="Transparent" BorderThickness="0" SelectionMode="Single">
                         <ListView.Resources>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Setter Property="Padding" Value="0"/>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,11 +10,13 @@ using System.Windows.Media.Imaging;
 
 namespace TileMapEditor
 {
-    public class Tile
+    public class Tile : INotifyPropertyChanged
     {
         private BitmapSource _tileSetBitmap;
         private Int32Rect _renderRect;
         private CroppedBitmap _tileSprite;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public Tile(int tileWidth, int tileHeight)
         {
@@ -21,7 +24,7 @@ namespace TileMapEditor
             byte[] pixels = new byte[tileHeight * stride];
 
             List<Color> colors = new List<Color>();
-            Color color = Color.FromArgb(50, 192, 192, 192);
+            Color color = Color.FromArgb(10, 255, 255, 255);
             colors.Add(color);
             BitmapPalette myPalette = new BitmapPalette(colors);
 
@@ -47,6 +50,18 @@ namespace TileMapEditor
             _tileSprite = new CroppedBitmap(_tileSetBitmap, _renderRect);
         }
 
+        public BitmapSource TileSetBitmap
+        {
+            get { return _tileSetBitmap; }
+            set { _tileSetBitmap = value; }
+        }
+
+        public Int32Rect RenderRect
+        {
+            get { return _renderRect; }
+            set { _renderRect = value; }
+        }
+
         public CroppedBitmap TileSprite
         {
             get { return _tileSprite; }
@@ -58,16 +73,17 @@ namespace TileMapEditor
             _tileSetBitmap = tileSetBitmap;
             _renderRect = renderRect;
             _tileSprite = new CroppedBitmap(_tileSetBitmap, _renderRect);
+            Notify("TileSetBitmap");
+            Notify("RenderRect");
+            Notify("TileSprite");
         }
 
-        public BitmapSource TileSetBitmap
+        void Notify(string propName)
         {
-            get { return _tileSetBitmap; }
-        }
-
-        public Int32Rect RenderRect
-        {
-            get { return _renderRect; }
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            }
         }
     }
 }
