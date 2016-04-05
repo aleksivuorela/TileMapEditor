@@ -58,7 +58,14 @@ namespace TileMapEditor
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            //TODO
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.DefaultExt = ".txt";
+            dlg.Filter = "Text documents (.txt)|*.txt";
+            if (dlg.ShowDialog() == true)
+            {
+                string filename = dlg.FileName;
+                _map.saveMap(filename);
+            }          
         }
 
         private void SaveAs_Click(object sender, RoutedEventArgs e)
@@ -76,7 +83,7 @@ namespace TileMapEditor
             if (_selectedTileFromSet != null && lvMap.SelectedItems.Count > 0)
             {
                 Tile selectedTileFromMap = (Tile)lvMap.SelectedItem;
-                selectedTileFromMap.setData(_selectedTileFromSet.TileSetBitmap, _selectedTileFromSet.RenderRect);
+                selectedTileFromMap.setData(_selectedTileFromSet.TileSetBitmap, _selectedTileFromSet.RenderRect, _selectedTileFromSet.TileNumber);
             }
         }
     }

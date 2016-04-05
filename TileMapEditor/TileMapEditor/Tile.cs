@@ -15,6 +15,7 @@ namespace TileMapEditor
         private BitmapSource _tileSetBitmap;
         private Int32Rect _renderRect;
         private CroppedBitmap _tileSprite;
+        private int _tileNumber;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -41,13 +42,15 @@ namespace TileMapEditor
             _tileSetBitmap = empty;
             _renderRect = new Int32Rect();
             _tileSprite = new CroppedBitmap(_tileSetBitmap, _renderRect);
+            _tileNumber = -1;
         }
 
-        public Tile(BitmapSource tileSetBitmap, Int32Rect renderRect)
+        public Tile(BitmapSource tileSetBitmap, Int32Rect renderRect, int tileNumber)
         {
             _tileSetBitmap = tileSetBitmap;
             _renderRect = renderRect;
             _tileSprite = new CroppedBitmap(_tileSetBitmap, _renderRect);
+            _tileNumber = tileNumber;
         }
 
         public BitmapSource TileSetBitmap
@@ -68,14 +71,22 @@ namespace TileMapEditor
             set { _tileSprite = value; }
         }
 
-        public void setData(BitmapSource tileSetBitmap, Int32Rect renderRect)
+        public int TileNumber
+        {
+            get { return _tileNumber; }
+            set { _tileNumber = value; }
+        }
+
+        public void setData(BitmapSource tileSetBitmap, Int32Rect renderRect, int tileNumber)
         {
             _tileSetBitmap = tileSetBitmap;
             _renderRect = renderRect;
             _tileSprite = new CroppedBitmap(_tileSetBitmap, _renderRect);
+            _tileNumber = tileNumber;
             Notify("TileSetBitmap");
             Notify("RenderRect");
             Notify("TileSprite");
+            Notify("TileNumber");
         }
 
         void Notify(string propName)

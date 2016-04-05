@@ -16,6 +16,7 @@ namespace TileMapEditor
         private int _margin;
         private List<Tile> _tiles;
         private int _columns;
+        private int _tileNumber;
 
         public TileSet(string tileSetPath, int tileWidth, int tileHeight, int margin)
         {
@@ -41,13 +42,15 @@ namespace TileMapEditor
         private void createTiles()
         {
             _tiles.Clear();
+            _tileNumber = -1;
             for (int y = 0 + _margin; y < _bitmap.PixelHeight - _margin; y = y + _tileHeight + _margin)
             {
                 for (int x = 0 + _margin; x < _bitmap.PixelWidth - _margin; x = x + _tileWidth + _margin)
                 {
                     try
                     {
-                        Tile tile = new Tile(_bitmap, new Int32Rect(x, y, _tileWidth, _tileHeight));
+                        _tileNumber++;
+                        Tile tile = new Tile(_bitmap, new Int32Rect(x, y, _tileWidth, _tileHeight), _tileNumber);
                         _tiles.Add(tile);
                     }
                     catch (Exception)

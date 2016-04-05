@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,6 +49,23 @@ namespace TileMapEditor
                 }
             }
         } 
+
+        public void saveMap(string filename)
+        {
+            using (StreamWriter writer = new StreamWriter(filename))
+            {
+                for (int r = 0; r < _mapRows; r++)
+                {
+                    for (int c = 0; c < _mapColumns; c++)
+                    {
+                        writer.Write("X"); //tiilen numero tähän, mutta miten...?
+                        if ( c < _mapColumns - 1 )
+                            writer.Write(",");
+                    }
+                    writer.WriteLine(); //rivinvaihto
+                }
+            }
+        }
   
     }
 }
