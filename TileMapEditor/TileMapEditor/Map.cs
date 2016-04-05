@@ -12,12 +12,14 @@ namespace TileMapEditor
         private int _mapRows;
         private int _mapColumns;
         private List<Tile> _mapTiles;
+        private Tile[,] _mapTileArr;
 
         public Map(int rows, int columns, int tileWidth, int tileHeight)
         {
             _mapRows = rows;
             _mapColumns = columns;
-            _mapTiles = new List<Tile>(); 
+            _mapTiles = new List<Tile>();
+            _mapTileArr = new Tile[rows, columns];
             setEmptyTiles(tileWidth, tileHeight);        
         }
 
@@ -46,6 +48,7 @@ namespace TileMapEditor
                 {
                     Tile tile = new Tile(tileWidth, tileHeight);
                     _mapTiles.Add(tile);
+                    _mapTileArr[r, c] = tile;
                 }
             }
         } 
@@ -58,14 +61,13 @@ namespace TileMapEditor
                 {
                     for (int c = 0; c < _mapColumns; c++)
                     {
-                        writer.Write("X"); //tiilen numero tähän, mutta miten...?
-                        if ( c < _mapColumns - 1 )
+                        writer.Write(_mapTileArr[r,c].TileNumber);
+                        if (c < _mapColumns - 1)
                             writer.Write(",");
                     }
                     writer.WriteLine(); //rivinvaihto
                 }
-            }
+            }           
         }
-  
     }
 }
