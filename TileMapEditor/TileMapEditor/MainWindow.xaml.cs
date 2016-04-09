@@ -37,12 +37,9 @@ namespace TileMapEditor
                 askDimsWindow.ShowDialog();
                 if (askDimsWindow.Rows != 0 && askDimsWindow.Columns != 0 && askDimsWindow.TileWidth != 0 && askDimsWindow.TileHeight != 0)
                 {
-                    gridLeft.Visibility = Visibility.Visible;
-                    gridRight.Visibility = Visibility.Visible;
                     _map = new Map(askDimsWindow.Rows, askDimsWindow.Columns, askDimsWindow.TileWidth, askDimsWindow.TileHeight);
-                    lvMap.DataContext = _map;
                     _tileSet = new TileSet(askDimsWindow.TileSetPath, askDimsWindow.TileWidth, askDimsWindow.TileHeight, askDimsWindow.TileSetMargin);
-                    lvTileSet.DataContext = _tileSet;
+                    updateUI();           
                 }
             }
             catch (Exception ex)
@@ -53,7 +50,16 @@ namespace TileMapEditor
 
         private void Open_Click(object sender, RoutedEventArgs e)
         {
-            //TODO
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = ".txt";
+            dlg.Filter = "Text documents (.txt)|*.txt";
+            if (dlg.ShowDialog() == true)
+            {
+                string filename = dlg.FileName;
+                _tileSet = new TileSet("d:\\tileset.png", 16, 16, 1); //korjaa!
+                _map = new Map(filename, _tileSet);
+                updateUI();
+            }
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -70,7 +76,14 @@ namespace TileMapEditor
 
         private void SaveAs_Click(object sender, RoutedEventArgs e)
         {
-            //TODO
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.DefaultExt = ".txt";
+            dlg.Filter = "Text documents (.txt)|*.txt";
+            if (dlg.ShowDialog() == true)
+            {
+                string filename = dlg.FileName;
+                _map.saveMap(filename);
+            }
         }
 
         private void lvTileSet_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -86,5 +99,14 @@ namespace TileMapEditor
                 selectedTileFromMap.setData(_selectedTileFromSet.TileSetBitmap, _selectedTileFromSet.RenderRect, _selectedTileFromSet.TileNumber);
             }
         }
+
+        private void updateUI()
+        {
+            gridLeft.Visibility = Visibility.Visible;
+            gridRight.Visibility = Visibility.Visible;     
+            lvMap.DataContext = _map;
+            lvTileSet.DataContext = _tileSet;
+        }
+
     }
 }

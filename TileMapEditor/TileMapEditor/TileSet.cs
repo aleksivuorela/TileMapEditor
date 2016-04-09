@@ -39,6 +39,12 @@ namespace TileMapEditor
             get { return _columns; }
         }
 
+        public Tile getTileByNumber(int number)
+        {
+            Tile tile = _tiles.Single(t => t.TileNumber == number); //Single will return a single result, but will throw an exception if it finds none or more than one
+            return tile;
+        }
+
         private void createTiles()
         {
             _tiles.Clear();

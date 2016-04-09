@@ -23,6 +23,11 @@ namespace TileMapEditor
             setEmptyTiles(tileWidth, tileHeight);        
         }
 
+        public Map(string filename, TileSet tileset)
+        {
+            loadMap(filename, tileset);
+        }
+
         public int MapRows
         {
             get { return _mapRows; }
@@ -68,6 +73,34 @@ namespace TileMapEditor
                     writer.WriteLine(); //rivinvaihto
                 }
             }           
+        }
+
+        public void loadMap(string filename, TileSet tileSet)
+        {
+            string[] lines = File.ReadAllLines(filename);
+            _mapRows = lines.Length;
+            _mapColumns = lines[0].Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Length;
+            _mapTiles = new List<Tile>();
+            _mapTileArr = new Tile[_mapRows, _mapColumns];
+
+            using (StreamReader reader = new StreamReader(filename))
+            {
+                int r = 0;
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(',');
+
+                    for (int c = 0; c < values.Length; c++)
+                    {
+                        Tile setTile = tileSet.getTileByNumber(int.Parse(values[c]));
+                        Tile mapTile = new Tile(setTile.TileSetBitmap, setTile.RenderRect, setTile.TileNumber);
+                        _mapTiles.Add(mapTile);
+                        _mapTileArr[r, c] = mapTile;
+                    }
+                    r++;
+                }
+            }
         }
     }
 }
