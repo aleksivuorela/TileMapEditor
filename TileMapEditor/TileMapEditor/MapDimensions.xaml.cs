@@ -34,37 +34,31 @@ namespace TileMapEditor
         public int Rows
         {
             get { return _rows; }
-            set { _rows = value; }
         }
 
         public int Columns
         {
             get { return _columns; }
-            set { _columns = value; }
         }
 
         public int TileWidth
         {
             get { return _tileWidth; }
-            set { _tileWidth = value; }
         }
 
         public int TileHeight
         {
             get { return _tileHeight; }
-            set { _tileHeight = value; }
         }
 
         public string TileSetPath
         {
             get { return _tileSetPath; }
-            set { _tileSetPath = value; }
         }
 
         public int TileSetMargin
         {
             get { return _tileSetMargin; }
-            set { _tileSetMargin = value; }
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
@@ -106,20 +100,12 @@ namespace TileMapEditor
 
         private void btnBrowse_Click(object sender, RoutedEventArgs e)
         {
-            // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-            // Set filter for file extension and default file extension
             dlg.DefaultExt = ".png";
             dlg.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
-
-            // Display OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = dlg.ShowDialog();
-
-            // Get the selected file name and display in a TextBox
             if (result == true)
             {
-                // Open document
                 string filename = dlg.FileName;
                 txtFileName.Text = filename;
             }

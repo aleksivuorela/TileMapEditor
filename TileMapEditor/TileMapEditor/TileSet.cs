@@ -22,6 +22,7 @@ namespace TileMapEditor
 
         public TileSet(string tileSetPath, int tileWidth, int tileHeight, int margin)
         {
+            /* Konstruktori luo tilesetin annetuilla tiedoilla */
             _tileSetPath = tileSetPath;
             _bitmap = new BitmapImage(new Uri(tileSetPath));
             _tileWidth = tileWidth;
@@ -34,6 +35,7 @@ namespace TileMapEditor
 
         public TileSet(string filename)
         {
+            /* Konstruktori luo tilesetin mappi-tiedoston ekalla rivillä määritellyillä tiedoilla */
             try
             {
                 loadTileSet(filename);
@@ -80,13 +82,14 @@ namespace TileMapEditor
 
         public Tile getTileByNumber(int number)
         {
+            /* Hakee tilesetistä tiiltä numeron perusteella */
             try
             {
                 Tile tile;
                 if (number == -1)
-                    tile = new Tile(_tileWidth, _tileHeight);
+                    tile = new Tile(_tileWidth, _tileHeight); // -1 tiilen numero tarkoittaa tyhjää tiiltä
                 else
-                    tile = _tiles.Single(t => t.TileNumber == number); //Single will return a single result, but will throw an exception if it finds none or more than one
+                    tile = _tiles.Single(t => t.TileNumber == number); // etsitään LINQ-loitsulla tilesetti listasta annettua numeroa vastaava tiili
                 return tile;
             }
             catch (Exception)
@@ -97,6 +100,7 @@ namespace TileMapEditor
 
         private void createTiles()
         {
+            /* Luo tilesetin tiilet palastelemalla ne yhdestä kuvasta */
             _tiles.Clear();
             _tileNumber = -1;
             for (int y = 0 + _margin; y < _bitmap.PixelHeight - _margin; y = y + _tileHeight + _margin)
@@ -119,12 +123,13 @@ namespace TileMapEditor
 
         private void loadTileSet(string filename)
         {
+            /* Lukee annetun mappi-tiedoston ekalta riviltä tilesetin tiedot */
             try
             {
                 using (StreamReader reader = new StreamReader(filename))
                 {
-                    var line = reader.ReadLine(); //ekalta riviltä luetaan tilesetin tiedot
-                    var values = line.Split(','); //rivin järjestys: tileSetPath, tileWidth, tileHeight, margin
+                    var line = reader.ReadLine(); // ekalta riviltä luetaan tilesetin tiedot
+                    var values = line.Split(','); // rivin arvojen järjestys: tileSetPath, tileWidth, tileHeight, margin
                     _tileSetPath = values[0];
                     _tileWidth = int.Parse(values[1]);
                     _tileHeight = int.Parse(values[2]);

@@ -21,6 +21,7 @@ namespace TileMapEditor
 
         public Tile(int tileWidth, int tileHeight)
         {
+            /* Konstruktori luo tyhjän tiilen */
             int stride = tileWidth / 8;
             byte[] pixels = new byte[tileHeight * stride];
 
@@ -47,6 +48,7 @@ namespace TileMapEditor
 
         public Tile(BitmapSource tileSetBitmap, Int32Rect renderRect, int tileNumber)
         {
+            /* Konstruktori luo tiilen tilesetistä */
             _tileSetBitmap = tileSetBitmap;
             _renderRect = renderRect;
             _tileSprite = new CroppedBitmap(_tileSetBitmap, _renderRect);
@@ -56,29 +58,26 @@ namespace TileMapEditor
         public BitmapSource TileSetBitmap
         {
             get { return _tileSetBitmap; }
-            set { _tileSetBitmap = value; }
         }
 
         public Int32Rect RenderRect
         {
             get { return _renderRect; }
-            set { _renderRect = value; }
         }
 
         public CroppedBitmap TileSprite
         {
             get { return _tileSprite; }
-            set { _tileSprite = value; }
         }
 
         public int TileNumber
         {
             get { return _tileNumber; }
-            set { _tileNumber = value; }
         }
 
         public void setData(BitmapSource tileSetBitmap, Int32Rect renderRect, int tileNumber)
         {
+            /* Asettaa kaikki tiilen tiedot kerralla ja lähettää viestin bindatulle kohteelle muuttuneista tiedoista INotifyPropertyChanged interfacen avulla */
             _tileSetBitmap = tileSetBitmap;
             _renderRect = renderRect;
             _tileSprite = new CroppedBitmap(_tileSetBitmap, _renderRect);

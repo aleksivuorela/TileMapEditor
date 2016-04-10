@@ -13,8 +13,8 @@
             <MenuItem Header="File">
                 <MenuItem Header="New" Click="New_Click"/>
                 <MenuItem Header="Open" Click="Open_Click"/>
-                <MenuItem Header="Save" Click="Save_Click"/>
-                <MenuItem Header="Save as" Click="SaveAs_Click"/>
+                <MenuItem Header="Save" Name="menuSave" Click="Save_Click" IsEnabled="False"/>
+                <MenuItem Header="Save as" Name="menuSaveAs" Click="SaveAs_Click" IsEnabled="False"/>
             </MenuItem>
         </Menu>
         <Grid DockPanel.Dock="Left" Width="800" Height="600" Margin="10" Name="gridLeft" Visibility="Hidden">
