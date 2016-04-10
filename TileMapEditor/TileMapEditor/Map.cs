@@ -11,6 +11,8 @@ namespace TileMapEditor
     {
         private int _mapRows;
         private int _mapColumns;
+        private int _tileWidth;
+        private int _tileHeight;
         private List<Tile> _mapTiles;
         private Tile[,] _mapTileArr;
 
@@ -18,14 +20,25 @@ namespace TileMapEditor
         {
             _mapRows = rows;
             _mapColumns = columns;
+            _tileWidth = tileWidth;
+            _tileHeight = tileHeight;
             _mapTiles = new List<Tile>();
             _mapTileArr = new Tile[rows, columns];
-            setEmptyTiles(tileWidth, tileHeight);        
+            setEmptyTiles(tileWidth, tileHeight);
         }
 
-        public Map(string filename, TileSet tileset)
+        public Map(string filename, TileSet tileSet)
         {
-            loadMap(filename, tileset);
+            try
+            {
+                _tileWidth = tileSet.TileWidth;
+                _tileHeight = tileSet.TileHeight;
+                loadMap(filename, tileSet);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public int MapRows
@@ -58,10 +71,11 @@ namespace TileMapEditor
             }
         } 
 
-        public void saveMap(string filename)
+        public void saveMap(string filename, string tileSetPath, int margin)
         {
             using (StreamWriter writer = new StreamWriter(filename))
             {
+                writer.WriteLine($"{tileSetPath},{_tileWidth},{_tileHeight},{margin}"); //ekalle riville tilesetin tiedot
                 for (int r = 0; r < _mapRows; r++)
                 {
                     for (int c = 0; c < _mapColumns; c++)
@@ -70,36 +84,45 @@ namespace TileMapEditor
                         if (c < _mapColumns - 1)
                             writer.Write(",");
                     }
-                    writer.WriteLine(); //rivinvaihto
+                    if (r < _mapRows - 1)
+                        writer.WriteLine(); //rivinvaihto
                 }
             }           
         }
 
         public void loadMap(string filename, TileSet tileSet)
         {
-            string[] lines = File.ReadAllLines(filename);
-            _mapRows = lines.Length;
-            _mapColumns = lines[0].Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Length;
-            _mapTiles = new List<Tile>();
-            _mapTileArr = new Tile[_mapRows, _mapColumns];
-
-            using (StreamReader reader = new StreamReader(filename))
+            try
             {
-                int r = 0;
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine();
-                    var values = line.Split(',');
+                string[] lines = File.ReadAllLines(filename);
+                _mapRows = lines.Length - 1;
+                _mapColumns = lines[1].Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Length;
+                _mapTiles = new List<Tile>();
+                _mapTileArr = new Tile[_mapRows, _mapColumns];
 
-                    for (int c = 0; c < values.Length; c++)
+                using (StreamReader reader = new StreamReader(filename))
+                {
+                    reader.ReadLine(); //skipataan eka rivi
+                    int r = 0;
+                    while (!reader.EndOfStream)
                     {
-                        Tile setTile = tileSet.getTileByNumber(int.Parse(values[c]));
-                        Tile mapTile = new Tile(setTile.TileSetBitmap, setTile.RenderRect, setTile.TileNumber);
-                        _mapTiles.Add(mapTile);
-                        _mapTileArr[r, c] = mapTile;
+                        var line = reader.ReadLine();
+                        var values = line.Split(',');
+
+                        for (int c = 0; c < values.Length; c++)
+                        {
+                            Tile setTile = tileSet.getTileByNumber(int.Parse(values[c]));
+                            Tile mapTile = new Tile(setTile.TileSetBitmap, setTile.RenderRect, setTile.TileNumber);
+                            _mapTiles.Add(mapTile);
+                            _mapTileArr[r, c] = mapTile;
+                        }
+                        r++;
                     }
-                    r++;
                 }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }

@@ -56,9 +56,16 @@ namespace TileMapEditor
             if (dlg.ShowDialog() == true)
             {
                 string filename = dlg.FileName;
-                _tileSet = new TileSet("d:\\tileset.png", 16, 16, 1); //korjaa!
-                _map = new Map(filename, _tileSet);
-                updateUI();
+                try
+                {
+                    _tileSet = new TileSet(filename);
+                    _map = new Map(filename, _tileSet);
+                    updateUI();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }            
             }
         }
 
@@ -70,7 +77,7 @@ namespace TileMapEditor
             if (dlg.ShowDialog() == true)
             {
                 string filename = dlg.FileName;
-                _map.saveMap(filename);
+                _map.saveMap(filename, _tileSet.TileSetPath, _tileSet.Margin);
             }          
         }
 
@@ -82,7 +89,7 @@ namespace TileMapEditor
             if (dlg.ShowDialog() == true)
             {
                 string filename = dlg.FileName;
-                _map.saveMap(filename);
+                _map.saveMap(filename, _tileSet.TileSetPath, _tileSet.Margin);
             }
         }
 

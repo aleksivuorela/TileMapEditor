@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace TileMapEditor
 {
     public class TileSet
     {
+        private string _tileSetPath;
         private BitmapSource _bitmap;
         private int _tileWidth;
         private int _tileHeight;
@@ -20,6 +22,7 @@ namespace TileMapEditor
 
         public TileSet(string tileSetPath, int tileWidth, int tileHeight, int margin)
         {
+            _tileSetPath = tileSetPath;
             _bitmap = new BitmapImage(new Uri(tileSetPath));
             _tileWidth = tileWidth;
             _tileHeight = tileHeight;
@@ -27,6 +30,42 @@ namespace TileMapEditor
             _tiles = new List<Tile>();
             _columns = (_bitmap.PixelWidth - margin) / (_tileWidth + margin);
             createTiles();
+        }
+
+        public TileSet(string filename)
+        {
+            try
+            {
+                loadTileSet(filename);
+                _bitmap = new BitmapImage(new Uri(_tileSetPath));
+                _tiles = new List<Tile>();
+                _columns = (_bitmap.PixelWidth - _margin) / (_tileWidth + _margin);
+                createTiles();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public string TileSetPath
+        {
+            get { return _tileSetPath; }
+        }
+
+        public int TileWidth
+        {
+            get { return _tileWidth; }
+        }
+
+        public int TileHeight
+        {
+            get { return _tileHeight; }
+        }
+
+        public int Margin
+        {
+            get { return _margin; }
         }
 
         public List<Tile> TileSetTiles
@@ -41,8 +80,19 @@ namespace TileMapEditor
 
         public Tile getTileByNumber(int number)
         {
-            Tile tile = _tiles.Single(t => t.TileNumber == number); //Single will return a single result, but will throw an exception if it finds none or more than one
-            return tile;
+            try
+            {
+                Tile tile;
+                if (number == -1)
+                    tile = new Tile(_tileWidth, _tileHeight);
+                else
+                    tile = _tiles.Single(t => t.TileNumber == number); //Single will return a single result, but will throw an exception if it finds none or more than one
+                return tile;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         private void createTiles()
@@ -64,6 +114,26 @@ namespace TileMapEditor
                         throw;
                     }
                 }
+            }
+        }
+
+        private void loadTileSet(string filename)
+        {
+            try
+            {
+                using (StreamReader reader = new StreamReader(filename))
+                {
+                    var line = reader.ReadLine(); //ekalta riviltä luetaan tilesetin tiedot
+                    var values = line.Split(','); //rivin järjestys: tileSetPath, tileWidth, tileHeight, margin
+                    _tileSetPath = values[0];
+                    _tileWidth = int.Parse(values[1]);
+                    _tileHeight = int.Parse(values[2]);
+                    _margin = int.Parse(values[3]);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }
