@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TileMapEditor"
+        xmlns:p="clr-namespace:TileMapEditor.Properties"
         mc:Ignorable="d"
         Title="New Map" Height="220" Width="350">
     <Grid>
@@ -40,7 +41,7 @@
             </StackPanel>
             <GroupBox Header="Tileset" HorizontalAlignment="Center">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBox Height="20" Width="90" HorizontalAlignment="Left" Name="txtFileName" VerticalAlignment="Top" Text="d:\\tileset.png"/>
+                    <TextBox Height="20" Width="90" HorizontalAlignment="Left" Name="txtFileName" VerticalAlignment="Top" Text="{Binding Source={x:Static p:Settings.Default}, Path=TileSetPath, Mode=OneWay}"/>
                     <Button Content="Browse" Height="20" HorizontalAlignment="Left" Name="btnBrowse" VerticalAlignment="Top" Width="50" Click="btnBrowse_Click" />
                     <StackPanel Height="20" Orientation="Horizontal">
                         <TextBlock Text="Margin:" Margin="10,0,5,0" VerticalAlignment="Center"/>
