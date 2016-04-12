@@ -128,5 +128,29 @@ namespace TileMapEditor
             }
         }
 
+        private void Documentation_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start("https://github.com/vuoale/IIO11300-Harjoitustyo/wiki/Loppuraportti");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                About aboutWindow = new About();
+                aboutWindow.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

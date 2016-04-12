@@ -16,6 +16,10 @@
                 <MenuItem Header="Save" Name="menuSave" Click="Save_Click" IsEnabled="False"/>
                 <MenuItem Header="Save as" Name="menuSaveAs" Click="SaveAs_Click" IsEnabled="False"/>
             </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="Documentation" Click="Documentation_Click"/>
+                <MenuItem Header="About" Click="About_Click"/>
+            </MenuItem>
         </Menu>
         <Grid DockPanel.Dock="Left" Width="800" Height="600" Margin="10" Name="gridLeft" Visibility="Hidden">
             <Grid.RowDefinitions>
