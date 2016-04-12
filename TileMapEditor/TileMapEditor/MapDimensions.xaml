@@ -14,12 +14,12 @@
                     <StackPanel Orientation="Vertical" Margin="0,10,0,0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Width:" Margin="0,0,13,0"/>
-                            <TextBox Text="24" Name="txtMapWidth" Margin="0,0,3,0" Width="30"/>
+                            <TextBox Text="{Binding Source={x:Static p:Settings.Default}, Path=MapWidth, Mode=OneWay}" Name="txtMapWidth" Margin="0,0,3,0" Width="30"/>
                             <TextBlock Text="(tiles)"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Height:" Margin="0,0,10,0"/>
-                            <TextBox Text="25" Name="txtMapHeight" Margin="0,0,3,0" Width="30"/>
+                            <TextBox Text="{Binding Source={x:Static p:Settings.Default}, Path=MapHeight, Mode=OneWay}" Name="txtMapHeight" Margin="0,0,3,0" Width="30"/>
                             <TextBlock Text="(tiles)"/>
                         </StackPanel>
                     </StackPanel>
@@ -28,12 +28,12 @@
                     <StackPanel Orientation="Vertical" Margin="0,10,0,0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Width:" Margin="0,0,13,0"/>
-                            <TextBox Text="16" Name="txtTileWidth" Margin="0,0,3,0" Width="30"/>
+                            <TextBox Text="{Binding Source={x:Static p:Settings.Default}, Path=TileWidth, Mode=OneWay}" Name="txtTileWidth" Margin="0,0,3,0" Width="30"/>
                             <TextBlock Text="(px)"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Height:" Margin="0,0,10,0"/>
-                            <TextBox Text="16" Name="txtTileHeight" Margin="0,0,3,0" Width="30"/>
+                            <TextBox Text="{Binding Source={x:Static p:Settings.Default}, Path=TileHeight, Mode=OneWay}" Name="txtTileHeight" Margin="0,0,3,0" Width="30"/>
                             <TextBlock Text="(px)"/>
                         </StackPanel>
                     </StackPanel>
@@ -45,7 +45,7 @@
                     <Button Content="Browse" Height="20" HorizontalAlignment="Left" Name="btnBrowse" VerticalAlignment="Top" Width="50" Click="btnBrowse_Click" />
                     <StackPanel Height="20" Orientation="Horizontal">
                         <TextBlock Text="Margin:" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                        <TextBox Text="1" Name="txtTileSetMargin" Margin="0,0,3,0" Width="15" TextAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBox Text="{Binding Source={x:Static p:Settings.Default}, Path=Margin, Mode=OneWay}" Name="txtTileSetMargin" Margin="0,0,3,0" Width="15" TextAlignment="Center" VerticalAlignment="Center"/>
                         <TextBlock Text="(px)" VerticalAlignment="Center"/>
                     </StackPanel>
                 </StackPanel>
